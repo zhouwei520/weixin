@@ -28,5 +28,7 @@ public enum  ResultEnum {
         this.code = code;
         this.message = message;
     }
-    ResultEnum(){}
+    ResultEnum(String message){
+        this.message = message;
+    }
 }
