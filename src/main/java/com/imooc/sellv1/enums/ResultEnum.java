@@ -12,6 +12,9 @@ import lombok.Getter;
 @Getter
 public enum  ResultEnum {
 
+    PARAM_ERROR(2,"参数不正确"),
+    PARAM_OBJECT_TYPE_ERROR(3,"对象转换失败"),
+    PARAM_VO_SELECT_ERROR(4,"查询结果出现异常"),
     PRODUCT_NOT_EXIST(10,"商品不存在"),
     PRODUCT_STOCK_ERROR(11,"库存不存在"),
     ORDER_NOT_EXIST(12,"订单不存在"),

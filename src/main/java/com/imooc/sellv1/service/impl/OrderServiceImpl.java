@@ -85,10 +85,13 @@ public class OrderServiceImpl implements OrderService {
         //写入订单数据库
         OrderMaster orderMaster=new OrderMaster();
         //拷贝复制 写入数据库  //如果orderDTO 里面值有null也会拷贝过去  建议放在前面
-        BeanUtils.copyProperties(orderDTO,orderMaster);
+
         //设置订单id和订单总价
-        orderMaster.setOrderId(orderId);
+        orderDTO.setOrderId(orderId);
+
+        BeanUtils.copyProperties(orderDTO,orderMaster);
         orderMaster.setOrderAmount(orderAmount);
+
         orderMaster.setOrderStatus(OrderStatusEnums.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
         orderMasterRepository.save(orderMaster);
