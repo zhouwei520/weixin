@@ -22,7 +22,8 @@ public enum  ResultEnum {
     ORDER_STATUS_ERROR(14,"订单状态有误"),
     ORDER_UPDATE_STATUS(15,"更新订单状态有问题"),
     ORDER_DETAIL_EMPTY(16,"订单中无商品详情"),
-    ORDER_PAY_STATUS_ERROR(17,"订单表中支付状态有问题")
+    ORDER_PAY_STATUS_ERROR(17,"订单表中支付状态有问题"),
+    ORDER_MASTER_ERROR(18,"这个订单不是买家的")
     ;
     private Integer code;
     private String  message;

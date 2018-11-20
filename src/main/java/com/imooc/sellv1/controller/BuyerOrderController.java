@@ -5,6 +5,7 @@ import com.imooc.sellv1.dto.OrderDTO;
 import com.imooc.sellv1.enums.ResultEnum;
 import com.imooc.sellv1.exception.SellException;
 import com.imooc.sellv1.from.OrderFrom;
+import com.imooc.sellv1.service.BuyerOrderService;
 import com.imooc.sellv1.service.impl.OrderServiceImpl;
 import com.imooc.sellv1.utils.ResultVOUtils;
 import com.imooc.sellv1.vo.ResultVO;
@@ -35,6 +36,8 @@ public class BuyerOrderController {
     @Autowired
     private OrderServiceImpl  orderService;
 
+    @Autowired
+    private BuyerOrderService buyerOrderService;
 
     @PostMapping("/create")
     //创建订单
@@ -77,7 +80,39 @@ public class BuyerOrderController {
    }
     //订单详情
 
-    //取消订单
+    @GetMapping("/detail")
 
+    public  ResultVO<OrderDTO> getFindDetail(@RequestParam("openid") String openid,
+                                             @RequestParam("orderid") String orderid){
+        if (StringUtils.isEmpty(openid)){
+            log.error("openid不能为空 必须填写");
+            throw  new SellException(ResultEnum.PARAM_ERROR);
+        }
+        if (StringUtils.isEmpty(orderid)){
+            log.error("订单id不能为空 必须填写");
+            throw  new SellException(ResultEnum.PARAM_ERROR);
+        }
+
+        //返回结果
+        return  ResultVOUtils.success( buyerOrderService.findOrderOne(openid,orderid));
+    }
+
+
+    //取消订单
+    @PostMapping("cancel")
+    public ResultVO cancel(@RequestParam("openid") String openid,
+                           @RequestParam("orderid") String orderid){
+        if (StringUtils.isEmpty(openid)){
+            log.error("openid不能为空 必须填写");
+            throw  new SellException(ResultEnum.PARAM_ERROR);
+        }
+        if (StringUtils.isEmpty(orderid)){
+            log.error("订单id不能为空 必须填写");
+            throw  new SellException(ResultEnum.PARAM_ERROR);
+        }
+
+       OrderDTO orderDTO=buyerOrderService.cancelOrder(openid,orderid);
+        return ResultVOUtils.success(orderDTO);
+    }
 
 }
